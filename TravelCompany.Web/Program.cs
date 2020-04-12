@@ -28,10 +28,9 @@ namespace TravelCompany.Web
             using (IServiceScope scope = scopeFactory.CreateScope())
             {
                 SeedDb seeder = scope.ServiceProvider.GetService<SeedDb>();
-                //seeder.SeedAsync().Wait();
+                seeder.SeedAsync().Wait();
             }
         }
-
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)

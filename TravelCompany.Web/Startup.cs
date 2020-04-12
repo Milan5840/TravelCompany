@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TravelCompany.Web.Data;
+using TravelCompany.Web.Helpers;
 
 namespace TravelCompany.Web
 {
@@ -39,6 +40,7 @@ namespace TravelCompany.Web
             });
 
             services.AddTransient<SeedDb>();
+            services.AddScoped<IUserHelper, UserHelper>();
 
 
 
@@ -60,6 +62,7 @@ namespace TravelCompany.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>

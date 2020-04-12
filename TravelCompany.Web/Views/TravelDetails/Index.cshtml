@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TravelCompany.Web.Data.Entities.TravelDetailsEntity>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Travel Details";
 }
 
 <h2>Index</h2>
@@ -43,9 +43,10 @@
                 @Html.DisplayFor(modelItem => item.City)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+                <a asp-action="Details" asp-route-id="@item.id" class="btn btn-info"><i class="glyphicon glyphicon glyphicon-align-justify"></i></a>
+                <button data-id="@item.id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+
             </td>
         </tr>
 }
