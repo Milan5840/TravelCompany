@@ -28,5 +28,7 @@ namespace TravelCompany.Web.Data.Entities
 
         public TravelDetailsEntity TravelDetails { get; set; }
 
+
+
     }
 }

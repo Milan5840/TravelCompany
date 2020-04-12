@@ -54,7 +54,7 @@ namespace TravelCompany.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,VisitReason,NumberDays")] ExpensesTypeEntity expensesTypeEntity)
+        public async Task<IActionResult> Create([Bind("id,Name")] ExpensesTypeEntity expensesTypeEntity)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace TravelCompany.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,VisitReason,NumberDays")] ExpensesTypeEntity expensesTypeEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("id,Name")] ExpensesTypeEntity expensesTypeEntity)
         {
             if (id != expensesTypeEntity.id)
             {
