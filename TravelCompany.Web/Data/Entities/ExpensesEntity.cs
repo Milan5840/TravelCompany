@@ -7,6 +7,8 @@ namespace TravelCompany.Web.Data.Entities
 {
     public class ExpensesEntity
     {
+        public int id { get; set; }
+
         public double feeding { get; set; }
 
         public double lodging { get; set; }
@@ -15,7 +17,7 @@ namespace TravelCompany.Web.Data.Entities
 
         public double representation { get; set; }
 
-        public ExpensesTypeEntity ExpensesType { get; set; }
+        public ICollection<ExpensesTypeEntity> ExpensesType { get; set; }
 
     }
 }

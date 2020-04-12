@@ -8,6 +8,8 @@ namespace TravelCompany.Web.Data.Entities
 {
     public class TravelEntity
     {
+        public int id { get; set; }
+        
         [DataType(DataType.DateTime)]
         [Display(Name = "Start Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm}", ApplyFormatInEditMode = false)]

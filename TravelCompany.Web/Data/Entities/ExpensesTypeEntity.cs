@@ -7,10 +7,11 @@ namespace TravelCompany.Web.Data.Entities
 {
     public class ExpensesTypeEntity
     {
+        public int id { get; set; }
         public String VisitReason { get; set; }
 
         public int NumberDays { get; set; }
 
-        public ICollection<ExpensesEntity> Expenses { get; set; }
+        public ICollection<TravelDetailsEntity> TravelDetails { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace TravelCompany.Web.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
+
         }
 
         public DbSet<TravelDetailsEntity> TravelDetails { get; set; }
