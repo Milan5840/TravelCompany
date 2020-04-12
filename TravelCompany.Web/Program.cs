@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using TravelCompany.Web;
 using TravelCompany.Web.Data;
 
 namespace TravelCompany.Web
@@ -37,3 +38,4 @@ namespace TravelCompany.Web
                 .UseStartup<Startup>();
     }
 }
+
