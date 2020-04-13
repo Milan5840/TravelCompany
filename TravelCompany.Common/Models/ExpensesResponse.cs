@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TravelCompany.Common.Models
 {
-    class ExpensesResponse
+    public class ExpensesResponse
     {
         public int id { get; set; }
 

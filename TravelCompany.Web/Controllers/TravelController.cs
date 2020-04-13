@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TravelCompany.Web.Data;
 using TravelCompany.Web.Data.Entities;
+using TravelCompany.Web.Helpers;
 
 namespace TravelCompany.Web.Controllers
 {
     public class TravelController : Controller
     {
         private readonly DataContext _context;
+        private readonly IConverterHelper _converterHelper;
 
-        public TravelController(DataContext context)
+        public TravelController(DataContext context,
+                               IConverterHelper converterHelper)
         {
             _context = context;
+            _converterHelper = converterHelper;
         }
 
         // GET: Travel

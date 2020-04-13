@@ -25,6 +25,6 @@ namespace TravelCompany.Common.Models
 
         public String VisitReason { get; set; }
 
-        //public List<ExpensesResponse> Expenses { get; set; }
+        public List<ExpensesResponse> Expenses { get; set; }
     }
 }
