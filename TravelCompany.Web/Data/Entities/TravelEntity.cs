@@ -9,7 +9,11 @@ namespace TravelCompany.Web.Data.Entities
     public class TravelEntity
     {
         public int id { get; set; }
-        
+
+        public int Document { get; set; }
+
+        public String FullName { get; set; }
+
         [DataType(DataType.DateTime)]
         [Display(Name = "Start Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm}", ApplyFormatInEditMode = false)]
@@ -24,11 +28,11 @@ namespace TravelCompany.Web.Data.Entities
 
         public DateTime? EndDateLocal => EndDate?.ToLocalTime();
 
-        public double Total { get; set; }
+        public String City { get; set; }
 
-        public TravelDetailsEntity TravelDetails { get; set; }
+        public String VisitReason { get; set; }
 
-
+        public double ExpenseTotal { get; set; }
 
     }
 }

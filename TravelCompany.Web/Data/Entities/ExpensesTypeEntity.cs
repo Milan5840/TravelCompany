@@ -11,6 +11,6 @@ namespace TravelCompany.Web.Data.Entities
         public int id { get; set; }
 
         public String Name { get; set; }
-        public ICollection<TravelDetailsEntity> TravelDetails { get; set; }
+        public ICollection<TravelEntity> Travel { get; set; }
     }
 }

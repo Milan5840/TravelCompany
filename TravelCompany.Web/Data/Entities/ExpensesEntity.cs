@@ -17,6 +17,8 @@ namespace TravelCompany.Web.Data.Entities
 
         public double representation { get; set; }
 
+        public string Photo { get; set; }
+
         public ICollection<ExpensesTypeEntity> ExpensesType { get; set; }
 
     }

@@ -10,22 +10,22 @@ using TravelCompany.Web.Data.Entities;
 
 namespace TravelCompany.Web.Controllers
 {
-    public class TravelDetailsController : Controller
+    public class TravelController : Controller
     {
         private readonly DataContext _context;
 
-        public TravelDetailsController(DataContext context)
+        public TravelController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: TravelDetails
+        // GET: Travel
         public async Task<IActionResult> Index()
         {
             return View(await _context.TravelDetails.ToListAsync());
         }
 
-        // GET: TravelDetails/Details/5
+        // GET: Travel/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace TravelCompany.Web.Controllers
                 return NotFound();
             }
 
-            var travelDetailsEntity = await _context.TravelDetails
+            var travelEntity = await _context.TravelDetails
                 .FirstOrDefaultAsync(m => m.id == id);
-            if (travelDetailsEntity == null)
+            if (travelEntity == null)
             {
                 return NotFound();
             }
 
-            return View(travelDetailsEntity);
+            return View(travelEntity);
         }
 
-        // GET: TravelDetails/Create
+        // GET: Travel/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: TravelDetails/Create
+        // POST: Travel/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Document,FullName,Date,City")] TravelDetailsEntity travelDetailsEntity)
+        public async Task<IActionResult> Create([Bind("id,Document,FullName,StartDate,EndDate,City,VisitReason,ExpenseTotal")] TravelEntity travelEntity)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(travelDetailsEntity);
+                _context.Add(travelEntity);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(travelDetailsEntity);
+            return View(travelEntity);
         }
 
-        // GET: TravelDetails/Edit/5
+        // GET: Travel/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace TravelCompany.Web.Controllers
                 return NotFound();
             }
 
-            var travelDetailsEntity = await _context.TravelDetails.FindAsync(id);
-            if (travelDetailsEntity == null)
+            var travelEntity = await _context.TravelDetails.FindAsync(id);
+            if (travelEntity == null)
             {
                 return NotFound();
             }
-            return View(travelDetailsEntity);
+            return View(travelEntity);
         }
 
-        // POST: TravelDetails/Edit/5
+        // POST: Travel/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Document,FullName,Date,City")] TravelDetailsEntity travelDetailsEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("id,Document,FullName,StartDate,EndDate,City,VisitReason,ExpenseTotal")] TravelEntity travelEntity)
         {
-            if (id != travelDetailsEntity.id)
+            if (id != travelEntity.id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace TravelCompany.Web.Controllers
             {
                 try
                 {
-                    _context.Update(travelDetailsEntity);
+                    _context.Update(travelEntity);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TravelDetailsEntityExists(travelDetailsEntity.id))
+                    if (!TravelEntityExists(travelEntity.id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace TravelCompany.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(travelDetailsEntity);
+            return View(travelEntity);
         }
 
-        // GET: TravelDetails/Delete/5
+        // GET: Travel/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,28 +124,28 @@ namespace TravelCompany.Web.Controllers
                 return NotFound();
             }
 
-            var travelDetailsEntity = await _context.TravelDetails
+            var travelEntity = await _context.TravelDetails
                 .FirstOrDefaultAsync(m => m.id == id);
-            if (travelDetailsEntity == null)
+            if (travelEntity == null)
             {
                 return NotFound();
             }
 
-            return View(travelDetailsEntity);
+            return View(travelEntity);
         }
 
-        // POST: TravelDetails/Delete/5
+        // POST: Travel/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var travelDetailsEntity = await _context.TravelDetails.FindAsync(id);
-            _context.TravelDetails.Remove(travelDetailsEntity);
+            var travelEntity = await _context.TravelDetails.FindAsync(id);
+            _context.TravelDetails.Remove(travelEntity);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TravelDetailsEntityExists(int id)
+        private bool TravelEntityExists(int id)
         {
             return _context.TravelDetails.Any(e => e.id == id);
         }

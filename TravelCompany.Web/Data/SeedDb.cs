@@ -21,30 +21,30 @@ namespace TravelCompany.Web.Data
            
         }
 
-        /*private async Task CheckExpensesAsync()
+        private async Task CheckExpensesAsync()
         {
             if (!_dataContext.Expenses.Any()) {
 
                 _dataContext.Expenses.Add(new ExpensesEntity
                 {
-
-                    feeding = 23900,
-                    lodging = 124000,
-                    transport = 43000,
-                    representation = 340900
-                },
-       
-                new ExpensesEntity
+                    feeding = 1232,
+                    lodging = 345484,
+                    transport = 458900,
+                    representation = 456000
+                }
+                    );
+                _dataContext.Expenses.Add(new ExpensesEntity
                 {
-                    feeding = 42300,
-                    lodging = 89000,
-                    transport = 12000,
-                    representation = 3900
-                });
+                    feeding = 1232,
+                    lodging = 345484,
+                    transport = 458900,
+                    representation = 456000
+                }
+                    );
 
                 await _dataContext.SaveChangesAsync();
             }
-        }*/
+        }
     }
 }
 

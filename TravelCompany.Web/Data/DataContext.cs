@@ -15,7 +15,7 @@ namespace TravelCompany.Web.Data
 
         }
 
-        public DbSet<TravelDetailsEntity> TravelDetails { get; set; }
+        public DbSet<TravelEntity> TravelDetails { get; set; }
 
         public DbSet<ExpensesTypeEntity> ExpensesType { get; set; }
 
