@@ -30,9 +30,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.VisitReason)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExpenseTotal)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -58,13 +55,9 @@
                 @Html.DisplayFor(modelItem => item.VisitReason)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ExpenseTotal)
-            </td>
-            <td>
                 <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
                 <a asp-action="Details" asp-route-id="@item.id" class="btn btn-info"><i class="glyphicon glyphicon glyphicon-align-justify"></i></a>
                 <button data-id="@item.id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-
             </td>
         </tr>
 }

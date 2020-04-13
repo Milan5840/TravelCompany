@@ -20,9 +20,9 @@ namespace TravelCompany.Web.Data.Entities
         public DateTime StartDate { get; set; }
 
         public DateTime StartDateLocal => StartDate.ToLocalTime();
-
+        
         [DataType(DataType.DateTime)]
-        [Display(Name = "Start Date")]
+        [Display(Name = "End Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm}", ApplyFormatInEditMode = false)]
         public DateTime? EndDate { get; set; }
 
@@ -32,7 +32,7 @@ namespace TravelCompany.Web.Data.Entities
 
         public String VisitReason { get; set; }
 
-        public double ExpenseTotal { get; set; }
+        public ICollection<ExpensesEntity> Expense { get; set; }
 
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelCompany.Web.Data;
 
 namespace TravelCompany.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200413023443_ControllerTravel")]
+    partial class ControllerTravel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,11 +27,7 @@ namespace TravelCompany.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("ExpenseTotal");
-
                     b.Property<string>("Photo");
-
-                    b.Property<int?>("Travelid");
 
                     b.Property<double>("feeding");
 
@@ -41,8 +39,6 @@ namespace TravelCompany.Web.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("Travelid");
-
                     b.ToTable("Expenses");
                 });
 
@@ -52,15 +48,13 @@ namespace TravelCompany.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ExpensesTypeEntityid");
+                    b.Property<int?>("ExpensesEntityid");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("Name");
 
                     b.HasKey("id");
 
-                    b.HasIndex("ExpensesTypeEntityid");
+                    b.HasIndex("ExpensesEntityid");
 
                     b.ToTable("ExpensesType");
                 });
@@ -77,6 +71,10 @@ namespace TravelCompany.Web.Migrations
 
                     b.Property<DateTime?>("EndDate");
 
+                    b.Property<double>("ExpenseTotal");
+
+                    b.Property<int?>("ExpensesTypeEntityid");
+
                     b.Property<string>("FullName");
 
                     b.Property<DateTime>("StartDate");
@@ -85,20 +83,22 @@ namespace TravelCompany.Web.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Travel");
-                });
+                    b.HasIndex("ExpensesTypeEntityid");
 
-            modelBuilder.Entity("TravelCompany.Web.Data.Entities.ExpensesEntity", b =>
-                {
-                    b.HasOne("TravelCompany.Web.Data.Entities.TravelEntity", "Travel")
-                        .WithMany("Expense")
-                        .HasForeignKey("Travelid");
+                    b.ToTable("Travel");
                 });
 
             modelBuilder.Entity("TravelCompany.Web.Data.Entities.ExpensesTypeEntity", b =>
                 {
-                    b.HasOne("TravelCompany.Web.Data.Entities.ExpensesTypeEntity")
+                    b.HasOne("TravelCompany.Web.Data.Entities.ExpensesEntity")
                         .WithMany("ExpensesType")
+                        .HasForeignKey("ExpensesEntityid");
+                });
+
+            modelBuilder.Entity("TravelCompany.Web.Data.Entities.TravelEntity", b =>
+                {
+                    b.HasOne("TravelCompany.Web.Data.Entities.ExpensesTypeEntity")
+                        .WithMany("Travel")
                         .HasForeignKey("ExpensesTypeEntityid");
                 });
 #pragma warning restore 612, 618

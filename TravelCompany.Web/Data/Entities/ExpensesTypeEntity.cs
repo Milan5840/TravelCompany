@@ -10,7 +10,10 @@ namespace TravelCompany.Web.Data.Entities
     {
         public int id { get; set; }
 
+        [MaxLength(50, ErrorMessage = "The field {0} can not have more than {1} characters.")]
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+
         public String Name { get; set; }
-        public ICollection<TravelEntity> Travel { get; set; }
+        public ICollection<ExpensesTypeEntity> ExpensesType { get; set; }
     }
 }

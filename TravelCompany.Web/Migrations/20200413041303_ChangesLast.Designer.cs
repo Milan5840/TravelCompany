@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelCompany.Web.Data;
 
 namespace TravelCompany.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200413041303_ChangesLast")]
+    partial class ChangesLast
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,6 +29,8 @@ namespace TravelCompany.Web.Migrations
 
                     b.Property<double>("ExpenseTotal");
 
+                    b.Property<int?>("ExpensesTypeEntityid");
+
                     b.Property<string>("Photo");
 
                     b.Property<int?>("Travelid");
@@ -41,6 +45,8 @@ namespace TravelCompany.Web.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("ExpensesTypeEntityid");
+
                     b.HasIndex("Travelid");
 
                     b.ToTable("Expenses");
@@ -52,15 +58,15 @@ namespace TravelCompany.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ExpensesTypeEntityid");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50);
 
+                    b.Property<int?>("TravelEntityid");
+
                     b.HasKey("id");
 
-                    b.HasIndex("ExpensesTypeEntityid");
+                    b.HasIndex("TravelEntityid");
 
                     b.ToTable("ExpensesType");
                 });
@@ -90,16 +96,20 @@ namespace TravelCompany.Web.Migrations
 
             modelBuilder.Entity("TravelCompany.Web.Data.Entities.ExpensesEntity", b =>
                 {
+                    b.HasOne("TravelCompany.Web.Data.Entities.ExpensesTypeEntity")
+                        .WithMany("Expenses")
+                        .HasForeignKey("ExpensesTypeEntityid");
+
                     b.HasOne("TravelCompany.Web.Data.Entities.TravelEntity", "Travel")
-                        .WithMany("Expense")
+                        .WithMany()
                         .HasForeignKey("Travelid");
                 });
 
             modelBuilder.Entity("TravelCompany.Web.Data.Entities.ExpensesTypeEntity", b =>
                 {
-                    b.HasOne("TravelCompany.Web.Data.Entities.ExpensesTypeEntity")
-                        .WithMany("ExpensesType")
-                        .HasForeignKey("ExpensesTypeEntityid");
+                    b.HasOne("TravelCompany.Web.Data.Entities.TravelEntity")
+                        .WithMany("ExpenseType")
+                        .HasForeignKey("TravelEntityid");
                 });
 #pragma warning restore 612, 618
         }

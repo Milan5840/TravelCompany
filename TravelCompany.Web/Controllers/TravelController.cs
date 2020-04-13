@@ -22,7 +22,7 @@ namespace TravelCompany.Web.Controllers
         // GET: Travel
         public async Task<IActionResult> Index()
         {
-            return View(await _context.TravelDetails.ToListAsync());
+            return View(await _context.Travel.ToListAsync());
         }
 
         // GET: Travel/Details/5
@@ -33,7 +33,7 @@ namespace TravelCompany.Web.Controllers
                 return NotFound();
             }
 
-            var travelEntity = await _context.TravelDetails
+            var travelEntity = await _context.Travel
                 .FirstOrDefaultAsync(m => m.id == id);
             if (travelEntity == null)
             {
@@ -54,7 +54,7 @@ namespace TravelCompany.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Document,FullName,StartDate,EndDate,City,VisitReason,ExpenseTotal")] TravelEntity travelEntity)
+        public async Task<IActionResult> Create([Bind("id,Document,FullName,StartDate,EndDate,City,VisitReason")] TravelEntity travelEntity)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace TravelCompany.Web.Controllers
                 return NotFound();
             }
 
-            var travelEntity = await _context.TravelDetails.FindAsync(id);
+            var travelEntity = await _context.Travel.FindAsync(id);
             if (travelEntity == null)
             {
                 return NotFound();
@@ -86,7 +86,7 @@ namespace TravelCompany.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Document,FullName,StartDate,EndDate,City,VisitReason,ExpenseTotal")] TravelEntity travelEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("id,Document,FullName,StartDate,EndDate,City,VisitReason")] TravelEntity travelEntity)
         {
             if (id != travelEntity.id)
             {
@@ -124,7 +124,7 @@ namespace TravelCompany.Web.Controllers
                 return NotFound();
             }
 
-            var travelEntity = await _context.TravelDetails
+            var travelEntity = await _context.Travel
                 .FirstOrDefaultAsync(m => m.id == id);
             if (travelEntity == null)
             {
@@ -139,15 +139,15 @@ namespace TravelCompany.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var travelEntity = await _context.TravelDetails.FindAsync(id);
-            _context.TravelDetails.Remove(travelEntity);
+            var travelEntity = await _context.Travel.FindAsync(id);
+            _context.Travel.Remove(travelEntity);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TravelEntityExists(int id)
         {
-            return _context.TravelDetails.Any(e => e.id == id);
+            return _context.Travel.Any(e => e.id == id);
         }
     }
 }

@@ -19,7 +19,9 @@ namespace TravelCompany.Web.Data.Entities
 
         public string Photo { get; set; }
 
-        public ICollection<ExpensesTypeEntity> ExpensesType { get; set; }
+        public double ExpenseTotal { get; set; }
+
+        public TravelEntity Travel { get; set; }
 
     }
 }
