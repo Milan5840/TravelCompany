@@ -22,7 +22,7 @@ namespace TravelCompany.Web.Data
         {
             await _dataContext.Database.EnsureCreatedAsync();
             await CheckExpensesTypeAsync();
-            await CheckTravelAsync();
+            await CheckTravel();
 
         }
 
@@ -47,7 +47,7 @@ namespace TravelCompany.Web.Data
             _dataContext.ExpensesType.Add(new ExpensesTypeEntity { Name = name });
         }
 
-        private async Task CheckTravelAsync()
+        private async Task CheckTravel()
         {
 
             var startDate = DateTime.Today.ToUniversalTime();
@@ -80,6 +80,7 @@ namespace TravelCompany.Web.Data
 
                 });
 
+
                 if (!_dataContext.Travel.Any())
                 {
                     _dataContext.Travel.Add(new TravelEntity
@@ -108,14 +109,74 @@ namespace TravelCompany.Web.Data
 
                     });
 
+                    if (!_dataContext.Travel.Any())
+                    {
+                        _dataContext.Travel.Add(new TravelEntity
+                        {
+                            Document = 657890456,
+                            FullName = "Melissa Taborda Hoyos",
+                            StartDate = startDate,
+                            EndDate = endDate,
+                            City = "Rio De Janeiro",
+                            VisitReason = "Vacations",
+                            Expense = new List<ExpensesEntity>
+                  {
+                      new ExpensesEntity
+                      {
+
+                          feeding = 4507779,
+                          lodging = 2340000,
+                          transport = 360000,
+                          representation = 2340000,
+                          Photo = $"~/images/320332_18814",
+                          ExpenseTotal = 9547779
+
+                      }
+
+                  }
+
+                        });
+
+                        if (!_dataContext.Travel.Any())
+                        {
+                            _dataContext.Travel.Add(new TravelEntity
+                            {
+                                Document = 78000343,
+                                FullName = "Nafer Yosimar Mosquera",
+                                StartDate = startDate,
+                                EndDate = endDate,
+                                City = "Miami",
+                                VisitReason = "Visit Call Center Miami",
+                                Expense = new List<ExpensesEntity>
+                  {
+                      new ExpensesEntity
+                      {
+
+                          feeding = 560000,
+                          lodging = 3400000,
+                          transport = 900000,
+                          representation = 545000,
+                          Photo = $"~/images/images",
+                          ExpenseTotal = 5405000
+
+                      }
+
+                  }
+
+                            });
+
+                            await _dataContext.SaveChangesAsync();
+
+                        }
+
+                    }
+
+
                 }
 
+
             }
-
         }
-
-
-
     }
 }
         
