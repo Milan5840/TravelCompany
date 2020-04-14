@@ -14,19 +14,23 @@ namespace TravelCompany.Web.Controllers
     public class TravelController : Controller
     {
         private readonly DataContext _context;
-        private readonly IConverterHelper _converterHelper;
+        //private readonly IConverterHelper _converterHelper;
+        private readonly IUserImage _userImage;
 
         public TravelController(DataContext context,
-                               IConverterHelper converterHelper)
+                               //IConverterHelper converterHelper
+                               IUserImage userImage)
         {
             _context = context;
-            _converterHelper = converterHelper;
+            //_converterHelper = converterHelper;
+            _userImage = userImage;
         }
 
         // GET: Travel
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Travel.ToListAsync());
+            return View(await _context.Travel.Include(t => t.Expense)
+                .OrderBy(t => t.StartDate).ToListAsync());
         }
 
         // GET: Travel/Details/5
@@ -37,7 +41,9 @@ namespace TravelCompany.Web.Controllers
                 return NotFound();
             }
 
-            var travelEntity = await _context.Travel
+            var travelEntity = await _context.Travel.
+                Include(t => t.Expense).
+                ThenInclude(t => t.ExpenseTotal)
                 .FirstOrDefaultAsync(m => m.id == id);
             if (travelEntity == null)
             {

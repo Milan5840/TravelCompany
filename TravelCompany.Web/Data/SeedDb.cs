@@ -58,7 +58,7 @@ namespace TravelCompany.Web.Data
                 _dataContext.Travel.Add(new TravelEntity
                 {
                     Document = 34908979,
-                    FullName = "Maria Alejandra Morales",
+                    FullName = "Isabella Natalia Correa",
                     StartDate = startDate,
                     EndDate = endDate,
                     City = "New York",
@@ -86,7 +86,7 @@ namespace TravelCompany.Web.Data
                     _dataContext.Travel.Add(new TravelEntity
                     {
                         Document = 657890456,
-                        FullName = "Julian David Montoya",
+                        FullName = "Andres Alexis Correa",
                         StartDate = startDate,
                         EndDate = endDate,
                         City = "Los Angeles",
@@ -165,21 +165,49 @@ namespace TravelCompany.Web.Data
 
                             });
 
-                            await _dataContext.SaveChangesAsync();
+                            if (!_dataContext.Travel.Any())
+                            {
+                                _dataContext.Travel.Add(new TravelEntity
+                                {
+                                    Document = 1235766543,
+                                    FullName = "Andres Felipe Guerra",
+                                    StartDate = startDate,
+                                    EndDate = endDate,
+                                    City = "Sao Paulo",
+                                    VisitReason = "Visit Call Center Sao Paulo",
+                                    Expense = new List<ExpensesEntity>
+                  {
+                      new ExpensesEntity
+                      {
+
+                          feeding = 56859484,
+                          lodging = 7900000,
+                          transport = 345000,
+                          representation = 6790000,
+                          Photo = $"~/images/factura-venta",
+                          ExpenseTotal = 65783484
+
+                      }
+
+                  }
+
+                                });
+
+                                await _dataContext.SaveChangesAsync();
+
+                            }
 
                         }
+
 
                     }
 
 
                 }
-
-
             }
         }
     }
 }
-        
     
 
 

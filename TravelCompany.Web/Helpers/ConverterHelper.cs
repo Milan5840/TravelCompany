@@ -7,37 +7,45 @@ using Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.Internal;
 using TravelCompany.Web.Migrations;
 using Microsoft.CodeAnalysis;
 using TravelCompany.Common.Models;
+using TravelCompany.Web.Models;
 
 
 namespace TravelCompany.Web.Helpers
 {
-    public class ConverterHelper : IConverterHelper
+    /*public class ConverterHelper : IConverterHelper
     {
-        public TravelResponse ToExpensesResponse(TravelEntity travelEntity)
-        {
-            return new TravelResponse
-            {
-                id = travelEntity.id,
-                Document = travelEntity.Document,
-                FullName = travelEntity.FullName,
-                StartDate = travelEntity.StartDate,
-                EndDate = travelEntity.EndDate,
-                City = travelEntity.City,
-                VisitReason = travelEntity.VisitReason,
-                Expenses = travelEntity.Expense?.Select(t => new ExpensesResponse
-                {
-                    id = t.id,
-                    feeding = t.feeding,
-                    lodging = t.lodging,
-                    transport = t.transport,
-                    representation = t.representation,
-                    Photo = t.Photo,
-                    ExpenseTotal = t.ExpenseTotal
-                }).ToList() };
 
-           }
+        public ExpensesEntity ToExpenseEntity(ExpensesViewModel model, string path, bool isNew)
+        {
+            return new ExpensesEntity
+            {
+                id = isNew ? 0 : model.id,
+                feeding = model.feeding,
+                lodging = model.lodging,
+                transport = model.transport,
+                representation = model.representation,
+                Photo = path,
+                ExpenseTotal = model.ExpenseTotal
+
+            };
+        }
+        public ExpensesViewModel ToExpenseViewModel(ExpensesEntity expenseEntity)
+        {
+            return new ExpensesViewModel
+            {
+                id = expenseEntity.id,
+                feeding = expenseEntity.feeding,
+                lodging = expenseEntity.lodging,
+                transport = expenseEntity.transport,
+                representation = expenseEntity.representation,
+                Photo = expenseEntity.Photo,
+                ExpenseTotal = expenseEntity.ExpenseTotal
+            };
+        }
+
+    }*/
     }
     
-    }
+    
 
 
