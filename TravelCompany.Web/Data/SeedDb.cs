@@ -70,7 +70,7 @@ namespace TravelCompany.Web.Data
                           lodging = 3432100,
                           transport = 450000,
                           representation = 23029191,
-                          Photo = $"~/images/Drawable/Recibo_1.jpg",
+                          Photo = $"~/images/Drawable/Recibo_1.png",
                           ExpenseTotal = 27253513
 
                       }
@@ -183,7 +183,7 @@ namespace TravelCompany.Web.Data
                           lodging = 7900000,
                           transport = 345000,
                           representation = 6790000,
-                          Photo = $"~/images/Drawable/factura-venta.jpg",
+                          Photo = $"~/images/Drawable/factura-venta.png",
                           ExpenseTotal = 65783484
 
                       }

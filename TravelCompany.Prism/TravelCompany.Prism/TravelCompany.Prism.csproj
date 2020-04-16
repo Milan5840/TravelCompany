@@ -9,4 +9,20 @@
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1367" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\TravelCompany.Common\TravelCompany.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\AddNewTravel.xaml.cs">
+      <DependentUpon>AddNewTravel.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TravelDetails.xaml.cs">
+      <DependentUpon>TravelDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Expense.xaml.cs">
+      <DependentUpon>Expense.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

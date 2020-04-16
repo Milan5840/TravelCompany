@@ -29,7 +29,14 @@ namespace TravelCompany.Prism
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            //containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
+            //containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            //containerRegistry.RegisterForNavigation<Menu, MenuItemViewModel>();
+            containerRegistry.RegisterForNavigation<TravelDetails, TravelDetailsViewModel>();
+            //containerRegistry.RegisterForNavigation<Travel, TravelViewModel>();
+            //containerRegistry.RegisterForNavigation<Expense, ExpenseViewModel>();
+
         }
     }
 }
