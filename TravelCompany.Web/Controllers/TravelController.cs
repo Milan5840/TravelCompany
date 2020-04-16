@@ -14,15 +14,15 @@ namespace TravelCompany.Web.Controllers
     public class TravelController : Controller
     {
         private readonly DataContext _context;
-        //private readonly IConverterHelper _converterHelper;
+        private readonly IConverterHelper _converterHelper;
         private readonly IUserImage _userImage;
 
         public TravelController(DataContext context,
-                               //IConverterHelper converterHelper
+                               IConverterHelper converterHelper,
                                IUserImage userImage)
         {
             _context = context;
-            //_converterHelper = converterHelper;
+            _converterHelper = converterHelper;
             _userImage = userImage;
         }
 
@@ -43,8 +43,8 @@ namespace TravelCompany.Web.Controllers
 
             var travelEntity = await _context.Travel.
                 Include(t => t.Expense).
-                ThenInclude(t => t.ExpenseTotal)
-                .FirstOrDefaultAsync(m => m.id == id);
+                //ThenInclude(t => t.ExpensesType)
+                FirstOrDefaultAsync(m => m.id == id);
             if (travelEntity == null)
             {
                 return NotFound();

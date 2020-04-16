@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace TravelCompany.Web.Data.Entities
-{
+{   
     public class ExpensesEntity
     {
         public int id { get; set; }

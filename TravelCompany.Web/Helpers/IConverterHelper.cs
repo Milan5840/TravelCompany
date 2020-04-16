@@ -10,7 +10,7 @@ namespace TravelCompany.Web.Helpers
 {
     public interface IConverterHelper
     {
-        ExpensesEntity ToExpenseEntity(ExpensesResponse model, string path, bool isNew);
+        ExpensesEntity ToExpenseEntity(ExpensesViewModel model, string path, bool isNew);
 
         ExpensesViewModel ToExpensesViewModel(ExpensesEntity expensesEntity);
     }

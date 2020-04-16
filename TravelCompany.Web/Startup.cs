@@ -40,8 +40,8 @@ namespace TravelCompany.Web
             });
 
             services.AddTransient<SeedDb>();
-            //services.AddScoped<IUserHelper, UserHelper>();
-            //services.AddScoped<IConverterHelper, ConverterHelper>(); 
+            services.AddScoped<IUserImage, ImageHelper>();
+            services.AddScoped<IConverterHelper, ConverterHelper>(); 
 
 
 

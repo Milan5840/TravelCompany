@@ -52,3 +52,75 @@
     <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+<br />
+@if (Model.Expense.Count != 0)
+{
+    <h3 class="panel-title">Expenses</h3>
+    <table class="table table-hover table-responsive table-striped" id="MyTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Expense.FirstOrDefault().feeding)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Expense.FirstOrDefault().lodging)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Expense.FirstOrDefault().transport)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Expense.FirstOrDefault().representation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Expense.FirstOrDefault().Photo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Expense.FirstOrDefault().ExpenseTotal)
+                </th>
+
+                @*<th>
+                   Total Cost
+                </th>*@
+                <th></th>
+            </tr>
+        </thead>
+  
+        <tbody>
+            @foreach (var item in Model.Expense.OrderBy(g => g.ExpenseTotal))
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.feeding)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lodging)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.transport)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.representation)
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Photo))
+                    {
+                        <img src="@Url.Content(item.Photo)" alt="Image"
+                             style="width:50px;height:50px;max-width: 100%; height: auto;" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpenseTotal)
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a asp-action="EditGroup" asp-route-id="@item.id" class="btn btn-warning" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-wrench"></i></a> |
+                    <a asp-action="DetailsGroup" asp-route-id="@item.id" class="btn btn-info" data-toggle="tooltip" title="Detail"><i class="glyphicon glyphicon-eye-open"></i></a> |
+                    <button data-id="@item.id" class="btn btn-danger deleteItem" data-toggle="modal" data-placement="top" title="Delete" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+        }
+

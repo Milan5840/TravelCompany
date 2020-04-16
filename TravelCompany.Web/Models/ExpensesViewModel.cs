@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using TravelCompany.Web.Data.Entities;
 
 namespace TravelCompany.Web.Models
 {
-    public class ExpensesViewModel
+    public class ExpensesViewModel : ExpensesEntity
     {
         [Display(Name = "Photo")]
-        public IFormFile Photo { get; set; }
+        public IFormFile PhotoFile { get; set; }
     }
 }

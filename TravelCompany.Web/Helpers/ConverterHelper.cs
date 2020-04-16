@@ -12,9 +12,8 @@ using TravelCompany.Web.Models;
 
 namespace TravelCompany.Web.Helpers
 {
-    /*public class ConverterHelper : IConverterHelper
+    public class ConverterHelper : IConverterHelper
     {
-
         public ExpensesEntity ToExpenseEntity(ExpensesViewModel model, string path, bool isNew)
         {
             return new ExpensesEntity
@@ -29,22 +28,23 @@ namespace TravelCompany.Web.Helpers
 
             };
         }
-        public ExpensesViewModel ToExpenseViewModel(ExpensesEntity expenseEntity)
+
+        public ExpensesViewModel ToExpensesViewModel(ExpensesEntity expensesEntity)
         {
             return new ExpensesViewModel
             {
-                id = expenseEntity.id,
-                feeding = expenseEntity.feeding,
-                lodging = expenseEntity.lodging,
-                transport = expenseEntity.transport,
-                representation = expenseEntity.representation,
-                Photo = expenseEntity.Photo,
-                ExpenseTotal = expenseEntity.ExpenseTotal
+                id = expensesEntity.id,
+                feeding = expensesEntity.feeding,
+                lodging = expensesEntity.lodging,
+                transport = expensesEntity.transport,
+                representation = expensesEntity.representation,
+                Photo = expensesEntity.Photo,
+                ExpenseTotal = expensesEntity.ExpenseTotal
             };
         }
 
-    }*/
     }
+ }
     
     
 
