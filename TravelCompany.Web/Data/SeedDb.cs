@@ -70,7 +70,7 @@ namespace TravelCompany.Web.Data
                           lodging = 3432100,
                           transport = 450000,
                           representation = 23029191,
-                          Photo = $"~/images/Recibo_1.jpg",
+                          Photo = $"~/images/Drawable/Recibo_1.jpg",
                           ExpenseTotal = 27253513
 
                       }
@@ -99,7 +99,7 @@ namespace TravelCompany.Web.Data
                           lodging = 400000,
                           transport = 2700000,
                           representation = 3450000,
-                          Photo = $"~/images/agencias-de-viaje-31-638",
+                          Photo = $"~/images/Drawable/agencias-de-viaje-31-638.jpg",
                           ExpenseTotal = 7150000
 
                       }
@@ -127,7 +127,7 @@ namespace TravelCompany.Web.Data
                           lodging = 2340000,
                           transport = 360000,
                           representation = 2340000,
-                          Photo = $"~/images/320332_18814",
+                          Photo = $"~/images/Drawable/320332_18814.jpg",
                           ExpenseTotal = 9547779
 
                       }
@@ -155,7 +155,7 @@ namespace TravelCompany.Web.Data
                           lodging = 3400000,
                           transport = 900000,
                           representation = 545000,
-                          Photo = $"~/images/images",
+                          Photo = $"~/images/Drawable/images.jpg",
                           ExpenseTotal = 5405000
 
                       }
@@ -183,7 +183,7 @@ namespace TravelCompany.Web.Data
                           lodging = 7900000,
                           transport = 345000,
                           representation = 6790000,
-                          Photo = $"~/images/factura-venta",
+                          Photo = $"~/images/Drawable/factura-venta.jpg",
                           ExpenseTotal = 65783484
 
                       }
