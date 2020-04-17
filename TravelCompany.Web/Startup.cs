@@ -39,6 +39,7 @@ namespace TravelCompany.Web
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddScoped<IUserHelper, UserHelper>();
             services.AddTransient<SeedDb>();
             services.AddScoped<IUserImage, ImageHelper>();
             services.AddScoped<IConverterHelper, ConverterHelper>(); 

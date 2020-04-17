@@ -8,12 +8,12 @@ using System.Text;
 
 namespace TravelCompany.Prism.ViewModels
 {
-    public class MainPageViewModel : ViewModelBase
+    /*public class MainPageViewModel : ViewModelBase
     {
         public MainPageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
             Title = "Main Page";
         }
-    }
+    }*/
 }

@@ -8,7 +8,7 @@ using TravelCompany.Web.Data.Entities;
 
 namespace TravelCompany.Web.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<UserEntity>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

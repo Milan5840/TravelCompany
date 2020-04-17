@@ -9,9 +9,10 @@ namespace TravelCompany.Prism.Views
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage()
+        /*public MainPage()
         {
             InitializeComponent();
         }
+    }*/
     }
 }

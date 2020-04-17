@@ -23,5 +23,7 @@ namespace TravelCompany.Web.Data.Entities
 
         public TravelEntity Travel { get; set; }
 
+        public UserEntity User { get; set; }
+
     }
 }
