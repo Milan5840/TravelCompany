@@ -18,5 +18,6 @@ namespace TravelCompany.Web.Helpers
 
         Task LogoutAsync();
         Task GetUserByEmailAsync(object email);
+        Task<UserEntity> GetUserByEmailAsync(string email);
     }
 }

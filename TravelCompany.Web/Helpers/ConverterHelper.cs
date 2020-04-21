@@ -8,23 +8,29 @@ using TravelCompany.Web.Migrations;
 using Microsoft.CodeAnalysis;
 using TravelCompany.Common.Models;
 using TravelCompany.Web.Models;
-
+using TravelCompany.Web.Data;
 
 namespace TravelCompany.Web.Helpers
 {
     public class ConverterHelper : IConverterHelper
     {
-        public ExpensesEntity ToExpenseEntity(ExpensesViewModel model, string path, bool isNew)
+
+        private readonly DataContext _dataContext;
+
+        public ConverterHelper(DataContext DataContext)
+        {
+            _dataContext = DataContext;
+        }
+        public async Task<ExpensesEntity> ToExpenseEntity(ExpensesViewModel model, string path, bool isNew)
         {
             return new ExpensesEntity
             {
                 id = isNew ? 0 : model.id,
-                feeding = model.feeding,
-                lodging = model.lodging,
-                transport = model.transport,
-                representation = model.representation,
+                Expense = model.Expense,
+                ExpenseTotal = model.ExpenseTotal,
+                Date = model.Date.ToUniversalTime(),
                 Photo = path,
-                ExpenseTotal = model.ExpenseTotal
+                Travel = await _dataContext.Travel.FindAsync(model.Travelid)
 
             };
         }
@@ -34,17 +40,15 @@ namespace TravelCompany.Web.Helpers
             return new ExpensesViewModel
             {
                 id = expensesEntity.id,
-                feeding = expensesEntity.feeding,
-                lodging = expensesEntity.lodging,
-                transport = expensesEntity.transport,
-                representation = expensesEntity.representation,
+                Expense = expensesEntity.Expense,
+                ExpenseTotal = expensesEntity.ExpenseTotal,
+                Date = expensesEntity.Date.ToUniversalTime(),
                 Photo = expensesEntity.Photo,
-                ExpenseTotal = expensesEntity.ExpenseTotal
+                Travelid = expensesEntity.Travel.id
             };
         }
-
     }
- }
+}
     
     
 

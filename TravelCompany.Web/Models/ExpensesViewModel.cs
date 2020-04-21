@@ -12,5 +12,7 @@ namespace TravelCompany.Web.Models
     {
         [Display(Name = "Photo")]
         public IFormFile PhotoFile { get; set; }
+
+        public int Travelid { get; set; }
     }
 }

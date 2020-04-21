@@ -45,6 +45,11 @@ namespace TravelCompany.Web.Helpers
             return await _userManager.FindByEmailAsync(email);
         }
 
+        public Task GetUserByEmailAsync(object email)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<SignInResult> LoginAsync(LoginViewModel model)
         {
             throw new NotImplementedException();
@@ -54,5 +59,6 @@ namespace TravelCompany.Web.Helpers
         {
             throw new NotImplementedException();
         }
+
     }
 }

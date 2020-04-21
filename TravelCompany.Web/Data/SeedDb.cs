@@ -13,12 +13,12 @@ namespace TravelCompany.Web.Data
     public class SeedDb
     {
         private readonly DataContext _dataContext;
-        private readonly IUserHelper _userHelper;
+        //private readonly IUserHelper _userHelper;
 
-        public SeedDb(DataContext dataContext,
-                      IUserHelper userHelper)
+        public SeedDb(DataContext dataContext)
+                      //IUserHelper userHelper)
         {
-            _userHelper = userHelper;
+            //_userHelper = userHelper;
             _dataContext = dataContext;
         }
 
@@ -27,28 +27,27 @@ namespace TravelCompany.Web.Data
             await _dataContext.Database.EnsureCreatedAsync();
             await CheckExpensesTypeAsync();
             await CheckTravel();
-            await CheckRoleAsync();
-            await CheckUserAsync();
-            var admin = await CheckUserAsync("345746534", "Juan David Cardozo", "juan@yopmail.com"
-                , "300 900 67 89", "Edificio 89", Types.Admin);
-            var employee = await CheckUserAsync("678934565", "Maria Antonia Morales", "maria@yopmail.com"
-                , "321 450 78 09", "Edificio 89", Types.Employee);
+            //await CheckRoleAsync();
+            //await CheckUserAsync();
+            //var admin = await CheckUserAsync("345746534", "Juan David Cardozo", "juan@yopmail.com"
+                //, "300 900 67 89", "Edificio 89", Types.Admin);
+            //var employee = await CheckUserAsync("678934565", "Maria Antonia Morales", "maria@yopmail.com"
+                //, "321 450 78 09", "Edificio 89", Types.Employee);
 
 
+        }
+
+        private async Task CheckRoleAsync()
+        {
+            //await _userHelper.CheckRoleAsync(Types.Admin.ToString());
+            //await _userHelper.CheckRoleAsync(Types.Employee.ToString());
         }
 
         private Task CheckUserAsync()
         {
             throw new NotImplementedException();
         }
-
-        private async Task CheckRoleAsync()
-        {
-            await _userHelper.CheckRoleAsync(Types.Admin.ToString());
-            await _userHelper.CheckRoleAsync(Types.Employee.ToString());
-        }
-
-        private async Task<UserEntity> CheckUserAsync(
+        /*private async Task<UserEntity> CheckUserAsync(
             string document,
             string fullName,
             string email,
@@ -57,8 +56,8 @@ namespace TravelCompany.Web.Data
             Types types
             )
         {
-            var user = await _userHelper.GetUserByEmailAsync(Email);
-            if (user = null) {
+            //var user = await _userHelper.GetUserByEmailAsync(email);
+            if (user == null) {
                 user = new UserEntity
                 {
                     Document = document,
@@ -67,6 +66,7 @@ namespace TravelCompany.Web.Data
                     Number = number,
                     Address = address,
                     Types = types
+                    
                 };
            
             }
@@ -74,7 +74,7 @@ namespace TravelCompany.Web.Data
             return user;
 
 
-        }
+        }*/
 
         private async Task CheckExpensesTypeAsync()
         {
@@ -117,18 +117,16 @@ namespace TravelCompany.Web.Data
                   {
                       new ExpensesEntity
                       {
-                          feeding = 342222,
-                          lodging = 3432100,
-                          transport = 450000,
-                          representation = 23029191,
-                          Photo = $"~/images/Drawable/Recibo_1.png",
-                          ExpenseTotal = 27253513
+                          Expense = _dataContext.ExpensesType.FirstOrDefault(t => t.Name == "Feeding"),
+                          ExpenseTotal = 3460000,
+                          Date = startDate.AddDays(5),
+                          Photo = $"~/images/Drawable/Recibo_1.png"
 
                       }
 
                   }
 
-                });
+                }); ;
 
 
                 if (!_dataContext.Travel.Any())
@@ -146,12 +144,10 @@ namespace TravelCompany.Web.Data
                       new ExpensesEntity
                       {
 
-                          feeding = 600000,
-                          lodging = 400000,
-                          transport = 2700000,
-                          representation = 3450000,
-                          Photo = $"~/images/Drawable/agencias-de-viaje-31-638.jpg",
-                          ExpenseTotal = 7150000
+                          Expense = _dataContext.ExpensesType.FirstOrDefault(t => t.Name == "Transport"),
+                          ExpenseTotal = 9000000,
+                          Date = startDate.AddDays(10),
+                          Photo = $"~/images/Drawable/agencias-de-viaje-31-638.jpg"
 
                       }
 
@@ -174,12 +170,10 @@ namespace TravelCompany.Web.Data
                       new ExpensesEntity
                       {
 
-                          feeding = 4507779,
-                          lodging = 2340000,
-                          transport = 360000,
-                          representation = 2340000,
-                          Photo = $"~/images/Drawable/320332_18814.jpg",
-                          ExpenseTotal = 9547779
+                          Expense = _dataContext.ExpensesType.FirstOrDefault(t => t.Name == "Representation"),
+                          ExpenseTotal = 7800000,
+                          Date = startDate.AddDays(15),
+                          Photo = $"~/images/Drawable/320332_18814.jpg"
 
                       }
 
@@ -202,12 +196,10 @@ namespace TravelCompany.Web.Data
                       new ExpensesEntity
                       {
 
-                          feeding = 560000,
-                          lodging = 3400000,
-                          transport = 900000,
-                          representation = 545000,
-                          Photo = $"~/images/Drawable/images.jpg",
-                          ExpenseTotal = 5405000
+                          Expense = _dataContext.ExpensesType.FirstOrDefault(t => t.Name == "Feeding"),
+                          ExpenseTotal = 6460000,
+                          Date = startDate.AddDays(20),
+                          Photo = $"~/images/Drawable/images.jpg"
 
                       }
 
@@ -230,12 +222,10 @@ namespace TravelCompany.Web.Data
                       new ExpensesEntity
                       {
 
-                          feeding = 56859484,
-                          lodging = 7900000,
-                          transport = 345000,
-                          representation = 6790000,
-                          Photo = $"~/images/Drawable/factura-venta.png",
-                          ExpenseTotal = 65783484
+                          Expense = _dataContext.ExpensesType.FirstOrDefault(t => t.Name == "Feeding"),
+                          ExpenseTotal = 89000000,
+                          Date = startDate.AddDays(34),
+                          Photo = $"~/images/Drawable/factura-venta.png"
 
                       }
 

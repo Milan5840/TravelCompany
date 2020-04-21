@@ -49,10 +49,11 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="AddExpense" asp-route-id="@Model.id" class="btn btn-info">Add Expense</a>
+    <a asp-action="Index" asp-route-id="@Model.id" class="btn btn-info">Back to List</a>
 </div>
 <br />
+
 @if (Model.Expense.Count != 0)
 {
     <h3 class="panel-title">Expenses</h3>
@@ -60,46 +61,36 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Expense.FirstOrDefault().feeding)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Expense.FirstOrDefault().lodging)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Expense.FirstOrDefault().transport)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Expense.FirstOrDefault().representation)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Expense.FirstOrDefault().Photo)
+                    @Html.DisplayNameFor(model => model.Expense.FirstOrDefault().Expense)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Expense.FirstOrDefault().ExpenseTotal)
                 </th>
-
+                <th>
+                    @Html.DisplayNameFor(model => model.Expense.FirstOrDefault().Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Expense.FirstOrDefault().Photo)
+                </th>
                 @*<th>
-                   Total Cost
-                </th>*@
+                       Total Cost
+                    </th>*@
                 <th></th>
             </tr>
         </thead>
-  
+
         <tbody>
-            @foreach (var item in Model.Expense.OrderBy(g => g.ExpenseTotal))
+            @foreach (var item in Model.Expense.OrderBy(g => g.DateLocal))
             {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.feeding)
+                    @Html.DisplayFor(modelItem => item.Expense.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.lodging)
+                    @Html.DisplayFor(modelItem => item.ExpenseTotal)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.transport)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.representation)
+                    @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
                     @if (!string.IsNullOrEmpty(item.Photo))
@@ -109,18 +100,14 @@
                     }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ExpenseTotal)
                 </td>
                 <td>
-                </td>
-                <td>
-                    <a asp-action="EditGroup" asp-route-id="@item.id" class="btn btn-warning" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-wrench"></i></a> |
-                    <a asp-action="DetailsGroup" asp-route-id="@item.id" class="btn btn-info" data-toggle="tooltip" title="Detail"><i class="glyphicon glyphicon-eye-open"></i></a> |
+                    <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-warning" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-wrench"></i></a> 
                     <button data-id="@item.id" class="btn btn-danger deleteItem" data-toggle="modal" data-placement="top" title="Delete" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
                 </td>
             </tr>
             }
         </tbody>
     </table>
-        }
+}
 

@@ -10,22 +10,22 @@ using TravelCompany.Web.Data.Entities;
 
 namespace TravelCompany.Web.Controllers
 {
-    public class ExpensesTypesController : Controller
+    public class ExpensesTypeController : Controller
     {
         private readonly DataContext _context;
 
-        public ExpensesTypesController(DataContext context)
+        public ExpensesTypeController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: ExpensesTypes
+        // GET: ExpensesType
         public async Task<IActionResult> Index()
         {
             return View(await _context.ExpensesType.ToListAsync());
         }
 
-        // GET: ExpensesTypes/Details/5
+        // GET: ExpensesType/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,13 +43,13 @@ namespace TravelCompany.Web.Controllers
             return View(expensesTypeEntity);
         }
 
-        // GET: ExpensesTypes/Create
+        // GET: ExpensesType/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ExpensesTypes/Create
+        // POST: ExpensesType/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -65,7 +65,7 @@ namespace TravelCompany.Web.Controllers
             return View(expensesTypeEntity);
         }
 
-        // GET: ExpensesTypes/Edit/5
+        // GET: ExpensesType/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,7 +81,7 @@ namespace TravelCompany.Web.Controllers
             return View(expensesTypeEntity);
         }
 
-        // POST: ExpensesTypes/Edit/5
+        // POST: ExpensesType/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -116,7 +116,7 @@ namespace TravelCompany.Web.Controllers
             return View(expensesTypeEntity);
         }
 
-        // GET: ExpensesTypes/Delete/5
+        // GET: ExpensesType/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,7 +134,7 @@ namespace TravelCompany.Web.Controllers
             return View(expensesTypeEntity);
         }
 
-        // POST: ExpensesTypes/Delete/5
+        // POST: ExpensesType/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -8,7 +8,7 @@ using TravelCompany.Web.Data.Entities;
 
 namespace TravelCompany.Web.Data
 {
-    public class DataContext : IdentityDbContext<UserEntity>
+    public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
@@ -20,6 +20,15 @@ namespace TravelCompany.Web.Data
         public DbSet<ExpensesTypeEntity> ExpensesType { get; set; }
 
         public DbSet<ExpensesEntity> Expenses { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ExpensesTypeEntity>()
+                .HasIndex(t => t.Name)
+                .IsUnique();
+        }
 
     }
 }
