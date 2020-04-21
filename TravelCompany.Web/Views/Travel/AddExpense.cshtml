@@ -1,4 +1,5 @@
 ﻿@model TravelCompany.Web.Models.ExpensesViewModel
+
 @{
     ViewData["Title"] = "AddExpense";
 }
@@ -6,17 +7,16 @@
 <h2>AddExpense</h2>
 
 <h4>AddExpense</h4>
-<form asp-action="AddExpense">
-    <div class="form-group">
-        <label asp-for="Travelid" class="control-label"></label>
-        <input asp-for="Travelid" class="form-control" />
-        <span asp-validation-for="Travelid" class="text-danger"></span>
-
-        <partial name="_Expenses" />
+<form asp-action="AddExpense" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="form-group">
+        <input type="hidden" asp-for="Travelid" />
+        
+        <partial name="_Expense" />
 
         <div class="form-group">
             <input type="submit" value="Create" class="btn btn-default" />
-            <a asp-action="Details" asp-route-id="@Model.Expense" class="btn btn-info">Back to List</a>
+            <a asp-action="Details" asp-route-id="@Model.Travelid" class="btn btn-info">Back to List</a>
+        </div>
         </div>
 </form>
 

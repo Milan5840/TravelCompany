@@ -12,13 +12,16 @@ namespace TravelCompany.Web.Helpers
     {
         private readonly UserManager<UserEntity> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<UserEntity> _signInManager;
 
         public UserHelper(
             UserManager<UserEntity> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            SignInManager<UserEntity> signInManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
         }
 
         public async Task<IdentityResult> AddUserAsync(UserEntity user, string password)
@@ -50,14 +53,18 @@ namespace TravelCompany.Web.Helpers
             throw new NotImplementedException();
         }
 
-        public Task<SignInResult> LoginAsync(LoginViewModel model)
+        public async Task<SignInResult> LoginAsync(LoginViewModel model)
         {
-            throw new NotImplementedException();
+            return await _signInManager.PasswordSignInAsync(
+                model.Username,
+                model.Password,
+                model.RememberMe,
+                false);
         }
 
-        public Task LogoutAsync()
+        public async Task LogoutAsync()
         {
-            throw new NotImplementedException();
+            await _signInManager.SignOutAsync(); 
         }
 
     }

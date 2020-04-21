@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TravelCompany.Web.Data;
 using TravelCompany.Web.Data.Entities;
 using TravelCompany.Web.Helpers;
@@ -33,86 +30,44 @@ namespace TravelCompany.Web.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Travel.Include(t => t.Expense).
+                OrderBy(t => t.StartDate).
                 ToListAsync());
-        }
-
-        // GET: Travel/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var travelEntity = await _context.Travel
-                .Include(t => t.Expense)
-                .ThenInclude(t => t.Expense)
-                .FirstOrDefaultAsync(m => m.id == id);
-
-            if (travelEntity == null)
-            {
-                return NotFound();
-            }
-
-            return View(travelEntity);
         }
 
         // GET: Travel/Create
         public async Task<IActionResult> Create(TravelEntity travelEntity)
         {
-            if (ModelState.IsValid) {
-
+            if (ModelState.IsValid)
+            {
                 _context.Add(travelEntity);
                 try
                 {
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
 
                     ModelState.AddModelError(string.Empty, ex.InnerException.Message);
                 }
             }
 
-            return View(travelEntity); 
+            return View(travelEntity);
         }
 
-        // POST: Travel/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        /*public async Task<IActionResult> Create([Bind("id,Document,FullName,StartDate,EndDate,City,VisitReason")] TravelEntity travelEntity)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(travelEntity);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(travelEntity);
-        }*/
-
         // GET: Travel/Edit/5
-        public async Task<IActionResult> Edit(int? id, TravelEntity travelEntity)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid) {
+            TravelEntity travelEntity = await _context.Travel.FindAsync(id);
 
-                _context.Update(travelEntity);
-                try
-                {
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (Exception ex) {
-
-                    ModelState.AddModelError(string.Empty, ex.InnerException.Message);
-                }
+            if (travelEntity == null)
+            {
+                return NotFound();
             }
             return View(travelEntity);
         }
@@ -122,7 +77,7 @@ namespace TravelCompany.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Document,FullName,StartDate,EndDate,City,VisitReason")] TravelEntity travelEntity)
+        public async Task<IActionResult> Edit(int id, TravelEntity travelEntity)
         {
             if (id != travelEntity.id)
             {
@@ -131,23 +86,17 @@ namespace TravelCompany.Web.Controllers
 
             if (ModelState.IsValid)
             {
+                _context.Update(travelEntity);
                 try
                 {
-                    _context.Update(travelEntity);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception ex)
                 {
-                    if (!TravelEntityExists(travelEntity.id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError(string.Empty, ex.InnerException.Message);
+
                 }
-                return RedirectToAction(nameof(Index));
             }
             return View(travelEntity);
         }
@@ -184,14 +133,31 @@ namespace TravelCompany.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TravelEntityExists(int id)
+        // GET: Travel/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            return _context.Travel.Any(e => e.id == id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var travelEntity = await _context.Travel
+                .Include(t => t.Expense)
+                .ThenInclude(t => t.Expense)
+                .FirstOrDefaultAsync(m => m.id == id);
+
+            if (travelEntity == null)
+            {
+                return NotFound();
+            }
+
+            return View(travelEntity);
         }
+        public async Task<IActionResult> AddExpense(int? id)
+        {
 
-        public async Task<IActionResult> AddExpense(int? id) {
-
-            if (id == null) {
+            if (id == null)
+            {
 
                 return NotFound();
             }
@@ -241,6 +207,78 @@ namespace TravelCompany.Web.Controllers
 
             return View(model);
         }
+
+        public async Task<IActionResult> EditExpense(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var expenseEntity = await _context.Expenses
+                .Include(g => g.Travel)
+                .FirstOrDefaultAsync(g => g.id == id);
+            if (expenseEntity == null)
+            {
+                return NotFound();
+            }
+
+            var model = _converterHelper.ToExpensesViewModel(expenseEntity);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditExpense(ExpensesViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var path = model.Photo;
+
+                if (model.Photo != null)
+                {
+                    path = await _userImage.UploadImageAsync(model.PhotoFile, "Drawable");
+                }
+
+                var expenseEntity = await _converterHelper.ToExpenseEntity(model, path, false);
+
+                _context.Update(expenseEntity);
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction($"{nameof(Details)}/{model.Travelid}");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.InnerException.Message);
+                }
+            }
+
+            return View(model);
+        }
+
+        // POST: Travel/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        /*public async Task<IActionResult> Create([Bind("id,Document,FullName,StartDate,EndDate,City,VisitReason")] TravelEntity travelEntity)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(travelEntity);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(travelEntity);
+        }*/
+
+        private bool TravelEntityExists(int id)
+        {
+            return _context.Travel.Any(e => e.id == id);
+        }
+
         public async Task<IActionResult> DeleteExpense(int? id)
         {
             if (id == null)
@@ -260,5 +298,7 @@ namespace TravelCompany.Web.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction($"{nameof(Details)}/{expenseEntity.Travel.id}");
         }
+
     }
 }
+

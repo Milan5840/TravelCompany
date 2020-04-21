@@ -4,19 +4,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TravelCompany.Web.Data;
 using TravelCompany.Web.Data.Entities;
+using TravelCompany.Web.Helpers;
+using TravelCompany.Web.Models;
 
 namespace TravelCompany.Web.Controllers
 {
     public class ExpensesTypeController : Controller
     {
         private readonly DataContext _context;
+        private readonly ICombosHelper _combosHelper;
 
-        public ExpensesTypeController(DataContext context)
+        public ExpensesTypeController(DataContext context,
+                                      ICombosHelper combosHelper)
         {
             _context = context;
+            _combosHelper = combosHelper;
         }
 
         // GET: ExpensesType
@@ -49,18 +56,37 @@ namespace TravelCompany.Web.Controllers
             return View();
         }
 
-        // POST: ExpensesType/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Name")] ExpensesTypeEntity expensesTypeEntity)
+        public async Task<IActionResult> Create(ExpensesTypeEntity expensesTypeEntity)
         {
             if (ModelState.IsValid)
             {
+                ExpensesViewModel model = new ExpensesViewModel
+                {
+                    ExpenseTypeId = _combosHelper.GetComboExpenses()
+                };
                 _context.Add(expensesTypeEntity);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex) {
+
+                    if (ex.InnerException.Message.Contains("duplicate"))
+                    {
+                        ModelState.AddModelError(string.Empty, $"Already exists a Expense Type {expensesTypeEntity.Name}.");
+                        //ExpenseTypeId = _combosHelper.GetComboExpenses();
+                        //return View(ExpensesViewModel);
+
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, ex.InnerException.Message);
+                    }
+                }
             }
             return View(expensesTypeEntity);
         }
@@ -73,7 +99,7 @@ namespace TravelCompany.Web.Controllers
                 return NotFound();
             }
 
-            var expensesTypeEntity = await _context.ExpensesType.FindAsync(id);
+            ExpensesTypeEntity expensesTypeEntity = await _context.ExpensesType.FindAsync(id);
             if (expensesTypeEntity == null)
             {
                 return NotFound();
@@ -81,37 +107,39 @@ namespace TravelCompany.Web.Controllers
             return View(expensesTypeEntity);
         }
 
-        // POST: ExpensesType/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Name")] ExpensesTypeEntity expensesTypeEntity)
+        public async Task<IActionResult> Edit(int id, ExpensesTypeEntity expensesTypeEntity)
         {
             if (id != expensesTypeEntity.id)
             {
-                return NotFound();
+                ExpensesViewModel model = new ExpensesViewModel
+                {
+                    ExpenseTypeId = _combosHelper.GetComboExpenses()
+                };
+                return View(model);
             }
 
             if (ModelState.IsValid)
             {
+                _context.Update(expensesTypeEntity);
+
                 try
                 {
-                    _context.Update(expensesTypeEntity);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception ex)
                 {
-                    if (!ExpensesTypeEntityExists(expensesTypeEntity.id))
+                    if (ex.InnerException.Message.Contains("duplicate"))
                     {
-                        return NotFound();
+                        ModelState.AddModelError(string.Empty, $"Already exists a expense type {expensesTypeEntity.Name}.");
                     }
                     else
                     {
-                        throw;
+                        ModelState.AddModelError(string.Empty, ex.InnerException.Message);
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
             return View(expensesTypeEntity);
         }
@@ -121,7 +149,11 @@ namespace TravelCompany.Web.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                ExpensesViewModel model = new ExpensesViewModel
+                {
+                    ExpenseTypeId = _combosHelper.GetComboExpenses()
+                };
+                return View(model);
             }
 
             var expensesTypeEntity = await _context.ExpensesType
@@ -131,7 +163,9 @@ namespace TravelCompany.Web.Controllers
                 return NotFound();
             }
 
-            return View(expensesTypeEntity);
+            _context.ExpensesType.Remove(expensesTypeEntity);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: ExpensesType/Delete/5

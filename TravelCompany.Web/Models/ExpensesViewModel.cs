@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,5 +15,7 @@ namespace TravelCompany.Web.Models
         public IFormFile PhotoFile { get; set; }
 
         public int Travelid { get; set; }
+
+        public IEnumerable ExpenseTypeId { get; set; }
     }
 }

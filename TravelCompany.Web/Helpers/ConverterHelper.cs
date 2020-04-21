@@ -21,19 +21,6 @@ namespace TravelCompany.Web.Helpers
         {
             _dataContext = DataContext;
         }
-        public async Task<ExpensesEntity> ToExpenseEntity(ExpensesViewModel model, string path, bool isNew)
-        {
-            return new ExpensesEntity
-            {
-                id = isNew ? 0 : model.id,
-                Expense = model.Expense,
-                ExpenseTotal = model.ExpenseTotal,
-                Date = model.Date.ToUniversalTime(),
-                Photo = path,
-                Travel = await _dataContext.Travel.FindAsync(model.Travelid)
-
-            };
-        }
 
         public ExpensesViewModel ToExpensesViewModel(ExpensesEntity expensesEntity)
         {
@@ -45,6 +32,19 @@ namespace TravelCompany.Web.Helpers
                 Date = expensesEntity.Date.ToUniversalTime(),
                 Photo = expensesEntity.Photo,
                 Travelid = expensesEntity.Travel.id
+            };
+        }
+        public async Task<ExpensesEntity> ToExpenseEntity(ExpensesViewModel model, string path, bool isNew)
+        {
+            return new ExpensesEntity
+            {
+                id = isNew ? 0 : model.id,
+                Expense = model.Expense,
+                ExpenseTotal = model.ExpenseTotal,
+                Date = model.Date.ToUniversalTime(),
+                Photo = path,
+                Travel = await _dataContext.Travel.FindAsync(model.Travelid)
+
             };
         }
     }
