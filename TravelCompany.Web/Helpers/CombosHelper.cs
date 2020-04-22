@@ -1,25 +1,36 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using TravelCompany.Web.Data;
 
 namespace TravelCompany.Web.Helpers
 {
     public class CombosHelper : ICombosHelper
     {
+        private readonly DataContext _context;
+        public CombosHelper(DataContext context) 
+        {
+                
+            _context = context;
+        }
         public IEnumerable<SelectListItem> GetComboExpenses()
         {
-            List<SelectListItem> list = new List<SelectListItem> 
+            List<SelectListItem> list = _context.ExpensesType.Select(t => new SelectListItem
             {
-                new SelectListItem { Text = "[Select a Expense Type...]" },
-                new SelectListItem { Text = "Feeding" },
-                new SelectListItem { Text = "Lodging" },
-                new SelectListItem { Text = "Transport" },
-                new SelectListItem { Text = "Representation" },
-            };
+                Text = t.Name,
+                Value = $"{t.id}"
+            })
+                .OrderBy(t => t.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "[Select a Expense Type...]",
+                Value = "0"
+            });
 
             return list;
+
         }
     }
 }

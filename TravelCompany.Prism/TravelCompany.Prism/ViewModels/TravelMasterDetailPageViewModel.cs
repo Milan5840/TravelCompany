@@ -1,50 +1,60 @@
-﻿using Prism.Navigation;
+﻿using Prism.Commands;
+using Prism.Mvvm;
+using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
+using Xamarin.Forms;
 using TravelCompany.Common.Models;
 
 namespace TravelCompany.Prism.ViewModels
 {
-    public class TravelViewModel : ViewModelBase
-    {
-        private readonly INavigationService _navigationService;
 
-        public TravelViewModel(INavigationService navigationService) : base(navigationService)
+
+    public class TravelMasterDetailPageViewModel : ViewModelBase
+    {
+
+        private readonly INavigationService _navigationService;
+        public TravelMasterDetailPageViewModel(INavigationService navigationService) : 
+            base(navigationService)
         {
             _navigationService = navigationService;
-            LoadMenu();
+            LoadMenus();
         }
 
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
 
-        private void LoadMenu()
+        private void LoadMenus()
         {
-            List<Menu> menus = new List<Menu>
+            List<MenuList> menus = new List<MenuList>
             {
-                new Menu
+                new MenuList
                 {
-                    Icon = "descarga",
+                    Icon = "ic_local_airport",
                     PageName = "AddNewTravel",
                     Title  = "Add New Travel"
-
                 },
 
-                new Menu
+                new MenuList
                 {
-                 Icon = "BLOG_controle-de-gastos-670x419",
-                 PageName = "Expense",
+                 Icon = "ic_feedback",
+                 PageName = "ExpensePage",
                  Title = "Travel Expenses"
                 },
 
-                new Menu
+                new MenuList
                 {
-                Icon = "Consejos-para-que-ahorres-al-viajar",
+                Icon = "ic_details",
                 PageName = "TravelDetails",
                 Title = "Travel Details"
+                },
+
+                new MenuList
+                {
+                Icon = "ic_verified_user",
+                PageName = "Login",
+                Title = "Log IN"
                 }
 
             };
@@ -58,6 +68,6 @@ namespace TravelCompany.Prism.ViewModels
                 }).ToList());
         }
     }
-
- 
 }
+
+   

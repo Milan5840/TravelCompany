@@ -15,14 +15,17 @@ namespace TravelCompany.Web.Controllers
         private readonly DataContext _context;
         private readonly IUserImage _userImage;
         private readonly IConverterHelper _converterHelper;
+        private readonly ICombosHelper _combosHelper;
 
         public TravelController(DataContext context,
                                 IUserImage userImage,
-                                IConverterHelper converterHelper)
+                                IConverterHelper converterHelper,
+                                ICombosHelper combosHelper)
         {
             _context = context;
             _userImage = userImage;
             _converterHelper = converterHelper;
+            _combosHelper = combosHelper;
 
         }
 
@@ -171,7 +174,8 @@ namespace TravelCompany.Web.Controllers
             var model = new ExpensesViewModel
             {
                 Travel = travelEntity,
-                Travelid = travelEntity.id
+                Travelid = travelEntity.id,
+                ExpenseTypeId = _combosHelper.GetComboExpenses()
             };
 
             return View(model);
@@ -193,18 +197,10 @@ namespace TravelCompany.Web.Controllers
                 var expenseEntity = await _converterHelper.ToExpenseEntity(model, path, true);
 
                 _context.Add(expenseEntity);
-                try
-                {
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction($"{nameof(Details)}/{model.Travelid}");
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError(string.Empty, ex.InnerException.Message);
-                }
-
+                await _context.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.Travelid}");
             }
-
+            model.ExpenseTypeId = _combosHelper.GetComboExpenses();
             return View(model);
         }
 

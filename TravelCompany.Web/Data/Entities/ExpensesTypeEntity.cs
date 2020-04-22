@@ -14,6 +14,7 @@ namespace TravelCompany.Web.Data.Entities
         [Required(ErrorMessage = "The field {0} is mandatory.")]
 
         public String Name { get; set; }
+
         public ICollection<ExpensesEntity> Expenses { get; set; }
     }
 }

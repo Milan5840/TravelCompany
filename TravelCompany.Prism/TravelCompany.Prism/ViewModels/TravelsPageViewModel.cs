@@ -4,16 +4,16 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Xamarin.Forms;
 
 namespace TravelCompany.Prism.ViewModels
 {
-    /*public class MainPageViewModel : ViewModelBase
+    public class TravelsPageViewModel : ViewModelBase
     {
-        public MainPageViewModel(INavigationService navigationService)
+        public TravelsPageViewModel(INavigationService navigationService) 
             : base(navigationService)
         {
-            Title = "Main Page";
+            Title = "Travels";
         }
-    }*/
+    }
 }

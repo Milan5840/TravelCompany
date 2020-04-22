@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TravelCompany.Common.Models
 {
-    public class Menu
+    public class MenuList
     {
         public string Icon { get; set; }
 

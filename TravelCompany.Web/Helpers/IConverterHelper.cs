@@ -12,8 +12,20 @@ namespace TravelCompany.Web.Helpers
     {
         Task<ExpensesEntity> ToExpenseEntity(ExpensesViewModel model, string path, bool isNew);
 
-        ExpensesViewModel ToExpensesViewModel(ExpensesEntity expensesEntity);
+        ExpensesViewModel ToExpensesViewModel(ExpensesViewModel model, ExpensesEntity expensesEntity);
+        object ToExpenseEntity(TravelEntity travelEntity);
+        object ToTravelResponse(TravelEntity travelEntity);
+        object ToExpensesViewModel(ExpensesEntity expenseEntity);
+        //object ToExpensesViewModel(ExpensesEntity expenseEntity);
+
+
     }
 }
+
+    
+
+
+
+  
 
     

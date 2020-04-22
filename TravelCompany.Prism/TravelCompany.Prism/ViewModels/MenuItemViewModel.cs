@@ -4,7 +4,7 @@ using TravelCompany.Common.Models;
 
 namespace TravelCompany.Prism.ViewModels
 {
-    public class MenuItemViewModel : Menu
+    public class MenuItemViewModel : MenuList
     {
         private readonly INavigationService _navigationService;
         private DelegateCommand _selectMenuCommand;
@@ -18,7 +18,7 @@ namespace TravelCompany.Prism.ViewModels
 
         private async void SelectMenuAsync()
         {
-            await _navigationService.NavigateAsync($"/TravelDetailViewModel/NavigationPage/{PageName}");
+            await _navigationService.NavigateAsync($"/TravelMasterDetailPage/NavigationPage/{PageName}");
         }
 
 

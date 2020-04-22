@@ -46,7 +46,7 @@ namespace TravelCompany.Web.Data.Entities
 
         public ICollection<ExpensesEntity> Expense { get; set; }
 
-        //public UserEntity User { get; set; }
+        public UserEntity User { get; set; }
 
     }
 }

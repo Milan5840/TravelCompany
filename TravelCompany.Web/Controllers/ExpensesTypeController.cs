@@ -17,13 +17,11 @@ namespace TravelCompany.Web.Controllers
     public class ExpensesTypeController : Controller
     {
         private readonly DataContext _context;
-        private readonly ICombosHelper _combosHelper;
+        
 
-        public ExpensesTypeController(DataContext context,
-                                      ICombosHelper combosHelper)
+        public ExpensesTypeController(DataContext context)
         {
             _context = context;
-            _combosHelper = combosHelper;
         }
 
         // GET: ExpensesType
@@ -62,10 +60,7 @@ namespace TravelCompany.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                ExpensesViewModel model = new ExpensesViewModel
-                {
-                    ExpenseTypeId = _combosHelper.GetComboExpenses()
-                };
+             
                 _context.Add(expensesTypeEntity);
 
                 try
@@ -113,11 +108,7 @@ namespace TravelCompany.Web.Controllers
         {
             if (id != expensesTypeEntity.id)
             {
-                ExpensesViewModel model = new ExpensesViewModel
-                {
-                    ExpenseTypeId = _combosHelper.GetComboExpenses()
-                };
-                return View(model);
+                return View();
             }
 
             if (ModelState.IsValid)
@@ -149,11 +140,8 @@ namespace TravelCompany.Web.Controllers
         {
             if (id == null)
             {
-                ExpensesViewModel model = new ExpensesViewModel
-                {
-                    ExpenseTypeId = _combosHelper.GetComboExpenses()
-                };
-                return View(model);
+             
+                return View();
             }
 
             var expensesTypeEntity = await _context.ExpensesType

@@ -12,5 +12,7 @@ namespace TravelCompany.Common.Models
 
         public List<ExpensesResponse> Expenses { get; set; }
 
+        public UserResponse User { get; set; }
+
     }
 }
